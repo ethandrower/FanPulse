@@ -1,0 +1,18 @@
+<!-- templates/myapp/create_idea.html -->
+
+{% extends 'base.html' %}  <!-- Extend your base template if you have one -->
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+<h2>Create New Idea for {{ username }} </h2>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render the form fields here -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+{% endblock %}
+
+
