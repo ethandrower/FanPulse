@@ -1,0 +1,10 @@
+
+
+/* static/css/styles.css */
+
+.profile-image {
+    border-radius: 50%; /* Makes the image rounded */
+    max-width: 100%; /* Ensures the image is responsive and doesn't exceed its container's width */
+    height: auto; /* Maintains aspect ratio */
+    max-height: 150px; /* Example maximum height, adjust as needed */
+}
