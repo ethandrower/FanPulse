@@ -13,6 +13,8 @@ class Idea(models.Model):
     username = models.CharField(max_length=125)
     votes = models.IntegerField(default=0)  # Tracks the net votes
     approve = models.BooleanField(default=False)
+    favorited = models.BooleanField(default=False)
+    contributed = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,  # This references the currently active user model
         on_delete=models.CASCADE,  # If the user is deleted, delete their ideas too

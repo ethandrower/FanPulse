@@ -32,7 +32,7 @@ def create_idea(request, username):
 
 
 def list_ideas(request, username):
-    ideas =  list(Idea.objects.filter(username=username, approve=True).order_by('votes').values('id', 'title', 'description', 'votes'))
+    ideas =  list(Idea.objects.filter(username=username, approve=True).order_by('-votes').values('id', 'title', 'description', 'votes', 'favorited', 'contributed'))
     return render(request, 'api/ideas_list.html', {"ideas": ideas, "username": username, "stripe_publishable_key": STRIPE_PUBLISHABLE_KEY})
 
 
