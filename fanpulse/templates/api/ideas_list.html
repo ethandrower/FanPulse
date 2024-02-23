@@ -110,36 +110,6 @@
         </div> <!-- end row -->
 
 
-
-
-</div> <!-- end container -->
-
-
-
-
-
-
-
-
-<!--            <div class="card mb-4">-->
-<!--                <div class="card-body">-->
-<!--                    {% verbatim %}-->
-<!--                    <h5 class="card-title">{{ idea.title }} <span class="text-muted"> - Votes: {{ idea.votes }}</span></h5>-->
-<!--                    <p class="card-text">{{ idea.description }}</p>-->
-<!--                    <button class="btn btn-primary" @click.prevent="vote(idea.id)">Upvote</button>-->
-<!--                    <button class="btn btn-secondary" @click="openContributionModal(idea.id)">Contribute$</button>-->
-
-<!--                    {% endverbatim %}-->
-<!--                </div>-->
-<!--            </div>-->
-
-
-
-
-
-
-
-
 <!-- Contribution Modal -->
 <div class="modal fade" id="contributionModal" tabindex="-1" role="dialog" aria-labelledby="contributionModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -176,6 +146,36 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+</div> <!-- end container -->
+
+
+
+
+
+
+
+
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-body">-->
+<!--                    {% verbatim %}-->
+<!--                    <h5 class="card-title">{{ idea.title }} <span class="text-muted"> - Votes: {{ idea.votes }}</span></h5>-->
+<!--                    <p class="card-text">{{ idea.description }}</p>-->
+<!--                    <button class="btn btn-primary" @click.prevent="vote(idea.id)">Upvote</button>-->
+<!--                    <button class="btn btn-secondary" @click="openContributionModal(idea.id)">Contribute$</button>-->
+
+<!--                    {% endverbatim %}-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+
+
 
 
 
@@ -239,7 +239,7 @@ const app = Vue.createApp({
     contribute(ideaId, amount) {
 
         const amountInCents = Math.round(amount * 100);
-
+        console.log("Inside contribute vue func");
         const data = { ideaId: ideaId, amount: amountInCents, username: this.username };
 
         console.log("inside stripe contribute method");
@@ -283,14 +283,23 @@ const app = Vue.createApp({
                 },
                 credentials: 'include',
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok){
+                    throw new Error('Network response was not ok');
+                }
+                response.json()
+            })
             .then(data => {
                 const idea = this.ideas.find(idea => idea.id === ideaId);
                 if (idea) {
                     idea.votes = data.votes;
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                       console.log("in error");
+                        window.alert('You have already voted on this idea.');
+                       console.error('Error:', error);
+            })
         },
         getCookie(name) {
             let cookieValue = null;

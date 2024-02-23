@@ -16,6 +16,7 @@ from .forms import UserRegisterForm
 stripe.api_key = settings.STRIPE_SECRET_KEY
 STRIPE_PUBLISHABLE_KEY = settings.STRIPE_PUBLISHABLE_KEY
 
+
 def create_idea(request, username):
     if request.method == 'POST':
         form = IdeaForm(request.POST)
